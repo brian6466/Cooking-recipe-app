@@ -33,10 +33,13 @@ private slots:
     void on_btnUpdateRecipe_clicked();
     void on_btnReport_clicked();
     void on_btnFindRecipe_clicked();
+    void on_btnClear_clicked();
+    void getUserData();
 
 private:
     Ui::MainWindow *ui;
     RecipiesReport *ptrRecipeReport;
+
     void resetElements();
 
 };
