@@ -18,6 +18,8 @@ QString sName,sType,sTime,sInstructions,
         ,sRice,sBanana,sPaprika,sVinegar,sBeef,sChicken,sSalmon,sLamb,sDuck,sCelery,sMushroom
         ,sRedPepper,sGreenPepper,sCarrot,sCoconut,sFructose,sCorn,sTurnip,sPeas,sFudge,sParsnip,sCauliflower,sBroccoli;
 
+int sSliderValue;
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -28,7 +30,7 @@ MainWindow::MainWindow(QWidget *parent) :
     this->setFixedSize(850, 850);
 }
 
-
+// This destructor helps to manage and free up memory
 MainWindow::~MainWindow()
 {
     delete ui;
@@ -44,9 +46,10 @@ sName = ui->txtName->text();
 if (ui->radioStarter->isChecked())  { sType = "Starter"; }
 if (ui->radioMain->isChecked())  { sType = "Main Course"; }
 if (ui->radioDesert->isChecked())  { sType = "Desert"; }
-sTime = ui->lineEditTime->text();
 sInstructions = ui->plainTextInstructions->toPlainText();
-
+sSliderValue = ui->horizontalSliderTime->value();
+// The following converts int to String for Storing
+sTime = QString::number(sSliderValue);
 if (ui->checkBoxFlour->isChecked())  { sFlour = 'Y'; } else { sFlour = 'N'; }
 if (ui->checkBoxParsley->isChecked())  { sParsley = 'Y'; } else { sFlour = 'N'; }
 if (ui->checkBoxPepper->isChecked())  { sPepper = 'Y'; } else { sPepper = 'N'; }
@@ -144,7 +147,7 @@ void MainWindow::on_btnUpdateRecipe_clicked()
 
 
     QSqlQuery query( MyDB::getInstance()->getDBInstance());
-    query.prepare("update recipes set Type='" + sType + "',CookTime='" + sTime + "',Instructions='" + sInstructions + "',"
+    query.prepare("update recipes set Type='" + sType + "',CookTime = '" + sTime + "',Instructions='" + sInstructions + "',"
      "Flour='" + sFlour + "',Parsley='" + sParsley + "',Pepper='" + sPepper + "',Garlic='" + sGarlic + "',Egg='" + sEgg + "',Milk='" + sMilk + "',"
      "Butter='" + sButter + "',Suger='" + sSuger + "',Cream='" + sCream + "',Onion='" + sOnion + "',Potatoe='" + sPotatoe + "',Pasta='" + sPasta + "',"
      "Rice='" + sRice + "',Tomatoe='" + sTomatoe + "',Cheese='" + sCheese + "',OliveOil='" + sOliveOil + "',CurryPowder='" + sCurryPowder + "',Salt='" + sSalt + "',"
@@ -221,7 +224,7 @@ void MainWindow::on_btnFindRecipe_clicked()
         if (sType == "Desert")  { ui->radioDesert->setChecked(true); }
 
         ui->plainTextInstructions->setPlainText(query.value(3).toString());
-        ui->lineEditTime->setText(query.value(4).toString());
+        ui->horizontalSliderTime->setSliderPosition(query.value(4).toInt());
 
         if ('Y' == query.value(5).toString())  { ui->checkBoxFlour->setChecked(true); }
         if ('Y' == query.value(6).toString())  { ui->checkBoxParsley->setChecked(true); }
@@ -278,7 +281,7 @@ void MainWindow::on_btnFindRecipe_clicked()
 void MainWindow::resetElements()
 {
     ui->txtName->clear();
-    ui->lineEditTime->clear();
+    ui->horizontalSliderTime->setValue(0);
     ui->plainTextInstructions->clear();
     ui->radioStarter->setChecked(false);
     ui->radioMain->setChecked(false);
@@ -335,4 +338,10 @@ void MainWindow::resetElements()
 
 
 
+
+
+void MainWindow::on_horizontalSliderTime_valueChanged(int value)
+{
+    ui->lcdNumber->display(value);
+}
 

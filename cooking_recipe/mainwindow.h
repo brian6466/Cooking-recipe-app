@@ -1,4 +1,3 @@
-
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
@@ -9,6 +8,9 @@
 QT_BEGIN_NAMESPACE
 class QGroupBox;
 QT_END_NAMESPACE
+
+// namespace declaration is a forward declaration of this ui class
+// its purpose is to group all your auto-generated windows in one namespace
 
 namespace Ui {
 class MainWindow;
@@ -29,6 +31,8 @@ private slots:
     void on_btnFindRecipe_clicked();
     void on_btnClear_clicked();
     void getUserData();
+
+    void on_horizontalSliderTime_valueChanged(int value);
 
 private:
     Ui::MainWindow *ui;
