@@ -1,9 +1,3 @@
-/*
- * Project Developed by CppBuzz.com for learning QT-C++ concepts
- * Users are allowed to use/modify this code according to their requirement.
- * These projects are free to download.
- * Date: 25th April 2020
- */
 
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H

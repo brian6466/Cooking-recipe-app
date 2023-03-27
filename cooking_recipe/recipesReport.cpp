@@ -25,7 +25,7 @@ void RecipiesReport::updateUI()
        QSqlQueryModel * model = new QSqlQueryModel(this);
 
        QSqlQuery query( MyDB::getInstance()->getDBInstance());
-       query.prepare("select * from cppbuzz_Recipes order by Id desc");
+       query.prepare("select * from recipes order by Id desc");
 
        if(!query.exec())
           qDebug() << query.lastError().text() << query.lastQuery();
