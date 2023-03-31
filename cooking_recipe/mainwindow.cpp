@@ -30,7 +30,7 @@ MainWindow::MainWindow(QWidget *parent) :
     this->setFixedSize(850, 850);
 }
 
-void MainWindow::on_btnShowTextEditMenu_clicked()
+void MainWindow::on_btnShowNotesMenu_clicked()
 {
     QWidget *widget = new QWidget();
     setCentralWidget(widget);
@@ -542,84 +542,92 @@ void MainWindow::on_btnFindRecipe_clicked()
     QSqlQuery query( MyDB::getInstance()->getDBInstance());
     query.prepare("select * from recipes where Name like '%" + sName + "%'");
 
-    if(!query.exec())
-       qDebug() << query.lastError().text() << query.lastQuery();
-    else
-    {
-       if(query.numRowsAffected()>0)
-       {
-       qDebug() << "== success query fetch() : " << query.lastQuery();
+        try
+        {
 
-       }
-       else {
-           qDebug() << " No record ! found ";
-           qDebug() << " Query is : " << query.lastQuery();
-       }
-    }
-    while(query.next())
-    {
-        qDebug()<<query.value(0).toString();
-        qDebug() << "== success query fetch() : " << query.lastQuery();
-        ui->txtName->setText(query.value(1).toString());
-        sType=query.value(2).toString();
-        if (sType == "Starter")  { ui->radioStarter->setChecked(true); }
-        if (sType == "Main Course")  { ui->radioMain->setChecked(true); }
-        if (sType == "Desert")  { ui->radioDesert->setChecked(true); }
+            if(!query.exec())
+               qDebug() << query.lastError().text() << query.lastQuery();
+            else
+            {
+               if(query.numRowsAffected()>0)
+               {
+               qDebug() << "== success query fetch() : " << query.lastQuery();
 
-        ui->plainTextInstructions->setPlainText(query.value(3).toString());
-        ui->horizontalSliderTime->setSliderPosition(query.value(4).toInt());
+               }
+               else {
+                   qDebug() << " No record ! found ";
+                   qDebug() << " Query is : " << query.lastQuery();
+               }
+            }
+            while(query.next())
+            {
+                qDebug()<<query.value(0).toString();
+                qDebug() << "== success query fetch() : " << query.lastQuery();
+                ui->txtName->setText(query.value(1).toString());
+                sType=query.value(2).toString();
+                if (sType == "Starter")  { ui->radioStarter->setChecked(true); }
+                if (sType == "Main Course")  { ui->radioMain->setChecked(true); }
+                if (sType == "Desert")  { ui->radioDesert->setChecked(true); }
 
-        if ('Y' == query.value(5).toString())  { ui->checkBoxFlour->setChecked(true); }
-        if ('Y' == query.value(6).toString())  { ui->checkBoxParsley->setChecked(true); }
-        if ('Y' == query.value(7).toString())  { ui->checkBoxPepper->setChecked(true); }
-        if ('Y' == query.value(8).toString())  { ui->checkBoxGarlic->setChecked(true); }
-        if ('Y' == query.value(9).toString())  { ui->checkBoxOnion->setChecked(true); }
-        if ('Y' == query.value(10).toString())  { ui->checkBoxPotatoe->setChecked(true); }
-        if ('Y' == query.value(11).toString())  { ui->checkBoxPasta->setChecked(true); }
-        if ('Y' == query.value(12).toString())  { ui->checkBoxEgg->setChecked(true); }
-        if ('Y' == query.value(13).toString())  { ui->checkBoxMilk->setChecked(true); }
-        if ('Y' == query.value(14).toString())  { ui->checkBoxButter->setChecked(true); }
-        if ('Y' == query.value(15).toString())  { ui->checkBoxSuger->setChecked(true); }
-        if ('Y' == query.value(16).toString())  { ui->checkBoxCream->setChecked(true); }
-        if ('Y' == query.value(17).toString())  { ui->checkBoxTomatoe->setChecked(true); }
-        if ('Y' == query.value(18).toString())  { ui->checkBoxCheese->setChecked(true); }
-        if ('Y' == query.value(19).toString())  { ui->checkBoxOliveOil->setChecked(true); }
-        if ('Y' == query.value(20).toString())  { ui->checkBoxCurryPowder->setChecked(true); }
-        if ('Y' == query.value(21).toString())  { ui->checkBoxSalt->setChecked(true); }
-        if ('Y' == query.value(22).toString())  { ui->checkBoxChocolat->setChecked(true); }
-        if ('Y' == query.value(23).toString())  { ui->checkBoxStrawberry->setChecked(true); }
-        if ('Y' == query.value(24).toString())  { ui->checkBoxRaspberry->setChecked(true); }
-        if ('Y' == query.value(25).toString())  { ui->checkBoxBanana->setChecked(true); }
-        if ('Y' == query.value(26).toString())  { ui->checkBoxGinger->setChecked(true); }
-        if ('Y' == query.value(27).toString())  { ui->checkBoxPaprika->setChecked(true); }
-        if ('Y' == query.value(28).toString())  { ui->checkBoxOregano->setChecked(true); }
-        if ('Y' == query.value(29).toString())  { ui->checkBoxRice->setChecked(true); }
-        if ('Y' == query.value(30).toString())  { ui->checkBoxVinegar->setChecked(true); }
-        if ('Y' == query.value(31).toString())  { ui->checkBoxBeef->setChecked(true); }
-        if ('Y' == query.value(32).toString())  { ui->checkBoxChicken->setChecked(true); }
-        if ('Y' == query.value(33).toString())  { ui->checkBoxSalmon->setChecked(true); }
-        if ('Y' == query.value(34).toString())  { ui->checkBoxLamb->setChecked(true); }
-        if ('Y' == query.value(35).toString())  { ui->checkBoxDuck->setChecked(true); }
-        if ('Y' == query.value(36).toString())  { ui->checkBoxCelery->setChecked(true); }
-        if ('Y' == query.value(37).toString())  { ui->checkBoxMushroom->setChecked(true); }
-        if ('Y' == query.value(38).toString())  { ui->checkBoxRedPepper->setChecked(true); }
-        if ('Y' == query.value(39).toString())  { ui->checkBoxGreenPepper->setChecked(true); }
-        if ('Y' == query.value(40).toString())  { ui->checkBoxCarrot->setChecked(true); }
-        if ('Y' == query.value(41).toString())  { ui->checkBoxCoconut->setChecked(true); }
-        if ('Y' == query.value(42).toString())  { ui->checkBoxFructose->setChecked(true); }
-        if ('Y' == query.value(43).toString())  { ui->checkBoxCorn->setChecked(true); }
-        if ('Y' == query.value(44).toString())  { ui->checkBoxTurnip->setChecked(true); }
-        if ('Y' == query.value(45).toString())  { ui->checkBoxPeas->setChecked(true); }
-        if ('Y' == query.value(46).toString())  { ui->checkBoxFudge->setChecked(true); }
-        if ('Y' == query.value(47).toString())  { ui->checkBoxParsnip->setChecked(true); }
-        if ('Y' == query.value(48).toString())  { ui->checkBoxCauliflower->setChecked(true); }
-        if ('Y' == query.value(49).toString())  { ui->checkBoxBroccoli->setChecked(true); }
+                ui->plainTextInstructions->setPlainText(query.value(3).toString());
+                ui->horizontalSliderTime->setSliderPosition(query.value(4).toInt());
 
-    }
+                if ('Y' == query.value(5).toString())  { ui->checkBoxFlour->setChecked(true); }
+                if ('Y' == query.value(6).toString())  { ui->checkBoxParsley->setChecked(true); }
+                if ('Y' == query.value(7).toString())  { ui->checkBoxPepper->setChecked(true); }
+                if ('Y' == query.value(8).toString())  { ui->checkBoxGarlic->setChecked(true); }
+                if ('Y' == query.value(9).toString())  { ui->checkBoxOnion->setChecked(true); }
+                if ('Y' == query.value(10).toString())  { ui->checkBoxPotatoe->setChecked(true); }
+                if ('Y' == query.value(11).toString())  { ui->checkBoxPasta->setChecked(true); }
+                if ('Y' == query.value(12).toString())  { ui->checkBoxEgg->setChecked(true); }
+                if ('Y' == query.value(13).toString())  { ui->checkBoxMilk->setChecked(true); }
+                if ('Y' == query.value(14).toString())  { ui->checkBoxButter->setChecked(true); }
+                if ('Y' == query.value(15).toString())  { ui->checkBoxSuger->setChecked(true); }
+                if ('Y' == query.value(16).toString())  { ui->checkBoxCream->setChecked(true); }
+                if ('Y' == query.value(17).toString())  { ui->checkBoxTomatoe->setChecked(true); }
+                if ('Y' == query.value(18).toString())  { ui->checkBoxCheese->setChecked(true); }
+                if ('Y' == query.value(19).toString())  { ui->checkBoxOliveOil->setChecked(true); }
+                if ('Y' == query.value(20).toString())  { ui->checkBoxCurryPowder->setChecked(true); }
+                if ('Y' == query.value(21).toString())  { ui->checkBoxSalt->setChecked(true); }
+                if ('Y' == query.value(22).toString())  { ui->checkBoxChocolat->setChecked(true); }
+                if ('Y' == query.value(23).toString())  { ui->checkBoxStrawberry->setChecked(true); }
+                if ('Y' == query.value(24).toString())  { ui->checkBoxRaspberry->setChecked(true); }
+                if ('Y' == query.value(25).toString())  { ui->checkBoxBanana->setChecked(true); }
+                if ('Y' == query.value(26).toString())  { ui->checkBoxGinger->setChecked(true); }
+                if ('Y' == query.value(27).toString())  { ui->checkBoxPaprika->setChecked(true); }
+                if ('Y' == query.value(28).toString())  { ui->checkBoxOregano->setChecked(true); }
+                if ('Y' == query.value(29).toString())  { ui->checkBoxRice->setChecked(true); }
+                if ('Y' == query.value(30).toString())  { ui->checkBoxVinegar->setChecked(true); }
+                if ('Y' == query.value(31).toString())  { ui->checkBoxBeef->setChecked(true); }
+                if ('Y' == query.value(32).toString())  { ui->checkBoxChicken->setChecked(true); }
+                if ('Y' == query.value(33).toString())  { ui->checkBoxSalmon->setChecked(true); }
+                if ('Y' == query.value(34).toString())  { ui->checkBoxLamb->setChecked(true); }
+                if ('Y' == query.value(35).toString())  { ui->checkBoxDuck->setChecked(true); }
+                if ('Y' == query.value(36).toString())  { ui->checkBoxCelery->setChecked(true); }
+                if ('Y' == query.value(37).toString())  { ui->checkBoxMushroom->setChecked(true); }
+                if ('Y' == query.value(38).toString())  { ui->checkBoxRedPepper->setChecked(true); }
+                if ('Y' == query.value(39).toString())  { ui->checkBoxGreenPepper->setChecked(true); }
+                if ('Y' == query.value(40).toString())  { ui->checkBoxCarrot->setChecked(true); }
+                if ('Y' == query.value(41).toString())  { ui->checkBoxCoconut->setChecked(true); }
+                if ('Y' == query.value(42).toString())  { ui->checkBoxFructose->setChecked(true); }
+                if ('Y' == query.value(43).toString())  { ui->checkBoxCorn->setChecked(true); }
+                if ('Y' == query.value(44).toString())  { ui->checkBoxTurnip->setChecked(true); }
+                if ('Y' == query.value(45).toString())  { ui->checkBoxPeas->setChecked(true); }
+                if ('Y' == query.value(46).toString())  { ui->checkBoxFudge->setChecked(true); }
+                if ('Y' == query.value(47).toString())  { ui->checkBoxParsnip->setChecked(true); }
+                if ('Y' == query.value(48).toString())  { ui->checkBoxCauliflower->setChecked(true); }
+                if ('Y' == query.value(49).toString())  { ui->checkBoxBroccoli->setChecked(true); }
+            }
 
+            }
+            catch(std::exception & e)
+            {
+                qDebug() << " Unable to Process Update Query";
 
+            }
 
 }
+
 
 void MainWindow::resetElements()
 {

@@ -46,7 +46,7 @@ private slots:
     void on_btnFindRecipe_clicked();
     void on_btnClear_clicked();
     void getUserData();
-    void on_btnShowTextEditMenu_clicked();
+    void on_btnShowNotesMenu_clicked();
 
     void on_horizontalSliderTime_valueChanged(int value);
     void newFile();

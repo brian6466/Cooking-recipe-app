@@ -1263,14 +1263,14 @@ Recipe</string>
       </widget>
      </item>
      <item row="4" column="0">
-      <widget class="QPushButton" name="btnShowTextEditMenu">
+      <widget class="QPushButton" name="btnShowNotesMenu">
        <property name="font">
         <font>
          <bold>true</bold>
         </font>
        </property>
        <property name="text">
-        <string>Text Editor</string>
+        <string>Notes</string>
        </property>
       </widget>
      </item>
