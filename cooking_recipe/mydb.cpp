@@ -10,9 +10,9 @@ void MyDB::init()
 {
     qDebug() << "in init()";
     db = QSqlDatabase::addDatabase("QSQLITE", "Data");
-    db.setDatabaseName("C:/Users/brian/cooking_recipe.db");
+    db.setDatabaseName("cooking_recipe.db");
 
-    if(QFile::exists("C:/Users/brian/cooking_recipe.db"))
+    if(QFile::exists("cooking_recipe.db"))
             qDebug() << "DB file exist";
         else
            qDebug() << "DB file doesn't exists";
